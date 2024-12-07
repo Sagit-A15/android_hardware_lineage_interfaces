@@ -158,6 +158,7 @@ void PowerSessionManager<HintManagerT>::setThreadsFromPowerSession(
     {
         std::lock_guard<std::mutex> lock(mSessionTaskMapMutex);
         mSessionTaskMap.replace(sessionId, threadIds, &addedThreads, &removedThreads);
+        HintManager::GetInstance()->SetAdpfProfile("PowerHint", mode);
     }
     for (auto tid : addedThreads) {
         if (!SetTaskProfiles(tid, {"ResetUclampGrp"})) {
